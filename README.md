@@ -2,5 +2,7 @@
 ---------------------------
 Ez a repo egy egyetemi, beadandó projektmunka megvalósítását segítő tároló...
 
-Egyenlőre csak ötleteléseket tartalmaz a Wiki-ben!
+A mobil részt a mobil ágba, a beágyazott részt a beagy ágba szerveztük ki.
+
+Egyelőre csak ötleteléseket tartalmaz a Wiki-ben!
 ---------------------------
