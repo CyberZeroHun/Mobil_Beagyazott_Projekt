@@ -1,2 +1,3 @@
 # Mobil_Beagyazott_Projekt
-Iskolai projekt Mobil és Beágyazott Rendszerek szakirányra
+Ez a repo egy egyetemi, beadandó projektmunka megvalósítását segítő tároló...
+Egyenlőre csak ötleteléseket tartalmaz a Wiki-ben!
