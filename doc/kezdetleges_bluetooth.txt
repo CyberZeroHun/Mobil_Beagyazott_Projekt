@@ -1,0 +1,145 @@
+Bluetooth - android.bluetooth package
+vezetéknélküli kapcsolat (pont-pont és multipont)
+nem minden eszközben van bluetooth
+
+eszközök keresése
+párosított eszközök listája
+RFCOMM csatornák kialakítása
+csatlakozni másik eszközre
+adatátvitel másik eszközre/ről
+a kapcsolatok kezelése
+(ble eszközök kommunikációja)
+(gatt ügyfél és szerver)
+
+A bluetooth low energy (ble) kihasználásához
+API level 18 kell minimum.
+
+- bluetooth beállítása
+- elérhető vagy párosított eszközök keresése
+- eszköz csatlakoztatása
+- adatátvitel
+
+osztályok és interfészek:
+BluetoothAdapter: a belépési pontja a bluetooth interakciókat
+BluetoothDevice: egy eszközt reprezentál, MAC cím, eszköz információk, név, cím, osztály, párosítási állapot
+BluetoothSocket: egy interfész, ami egy TCP socket-hez hasonlít, kapcsolódási pont, I/O Stream
+BluetoothServerSocket: TCP szerver socket-hez hasonlít, a bejövő kéréseket fogadja, kapcsolódáskor egy BluetoothSockettel tér vissza, a kommunikációban egy eszköznek szervernek kell lennie
+BluetoothClass: csak olvasható tulajdonságok, major és minor osztály, hasznos infók az eszköz típusáról
+BluetoothProfile: ez egy interfész, egy specifikáció a kapcsolathoz
+BluetoothHeadset: Bluetooth Headset és hands-Free Profile, támogatás a headset-hez
+BluetoothA2dp: Advanced Audio Distribution Profile, audio streamelés
+BluetoothHealth: Health Device Profile, egészséggel kapcsolatos kütyük
+BluetothHealthCallback: absztrakt osztály, ezt kell kiterjeszteni és létrehozni a callback metódust, hogy fogadja a regisztációs és csatorna állapot frisstéseket
+BluetoothHealthAppConfiguration: alkamazás konfiguráció egy harmadik féltől származó Health eszközhöz
+BluetoothProfile.ServiceListener: interfész, ha az ügyfél egy profil alatt fut, akkor ez egy értesítési felület
+
+engedélyek:
+BLUETOOTH: kommunikáció, csatlakozási kérelem, csatlakozás engedélyezés, adatátvitel
+BLUETOOTH_ADMIN: (ehhez kell a BLUETOOTH engedély is) eszköz felfedezés, bluetooth beállítások
+
+Nincs bluetooth, vagy nincs bekapcsolva:
+ha nincs, akkor üzenet
+ha nincs engedélyezve akkor be kell kacsoltatni a felhasználóval az app elhagyása nélkül
+
+meg kell hívnunk a BluetoothAdapter.getDefaultAdapter() metódust, ha ez nem ad vissza semmit, akkor nincs bluetooth a telefonban
+ezek után az isEnabled metódus megondja ha nincs engedélyezve, ekkor
+létre kell hoznunk az adapterre egy action_REQUEST_ENABLE intent-et
+és el kell indítanunk egy aktivitást a visszaadott eredményére várva, az intent-el,
+REQUEST-ENABLE_BT
+ekkor megjelenik egy ablak a felhasználónak, amiben elfogadhatja vagy nem
+az intent visszatérhet RESULT_OK-al, vagy RESULT_CANCELED-el
+ez az intentes lépés kihagyható, ha automatikusan engedélyezük a bluetooth discoverability-jét
+
+az ACTION_STATE_CHANGED broadcast intent-el figyelhetjük ha a bluetooth állapota megváltozik
+ez tartalmaz extra mezőket, EXTRA_STATE, EXTRA_PREVIOUS-STATE (mostani és előző állapot)
+egyéb extra mezők: STATE_TURNING_ON, STATE_ON, STATE_TURNING-OFF, STATE_OFF	melyek addig figyelik
+a bluetooth állapotokat, amíg az appunk fut
+
+Eszközök felfedezésénél az eszközök csak akkor reagálnak ha engedélyezve vannak.
+felfedezés, érdeklődés, szkennelés
+ha felfedezhető, akkor ad nevet, osztályt, mac címet
+ez alapján kapcsolódhatunk az eszközre
+első alkalommal párosítanunk kel, ha párosítjuk, akkor amikor hatósugaron beül van kérhetünk tőle információt és csatlakozhatunk engedély kérés nélkül bármikor, egyébként mindig engedélyt kér
+tehát a csatlakozott eszköz képes adatot küldeni, a párosított pedig titkosan kommunikálni
+Androidon kötelező párosítani és automatikusan titkosít
+az Android eszközök alapjáraton nem felfedezhetőek, külön be kell kapcsolni
+ezt be lehet állítani egy korlátozott ideig, vagy engedélyt kérhetünk az alkalmazás elhagyása nélkül
+
+adapteren keresztül lekérdezzük a párosított (bonded) eszközöket, ami egy BluetoothDevice SETel tér vissza
+egy saját adapterhez hozzáadjuk egyesével a nevüket és a MAC címüket
+ha akarjuk egy listview-ba ki is tehetjük
+
+az eszközök felfedezését a startDiscovery metódussal tehetjük meg
+asszinkron metódus, azonna bool-al tér vissza ha sikeres volt a felderítés elindítása
+a felderítés kb 12mp-es folyamat
+az app egy ACTION_FOUND BroadcastReceiver-re regisztrál fel, amire a rendszer közvetíti
+az ACTION_FOUND intent-eket
+exta mezői: EXTRA_DEVICE, EXTRA_CLASS (amia BluetootDevice és BluetoothClass)
+mivel a felderítés erőforrásigényes, ezért mindig állítsuk le a cancelDiscovery()
+metódussal, ha már találtunk valamit amire ténylegesen kapcsolódunk
+és a kapcsolódás alatt is nagyon leveszi a szávsélességet a felfedezés, így jobb kikapcsolni
+
+hogy az én eszközöm is felfedezhető legyen mások számára
+meg kell a bt adapterre hívnom egy ACTION_REQUEST_DISCOVERABLE intent-et
+ez alapjáraton 120mp-re teszi láthatóvá a telefonom, de
+az EXTRA_DISCOVERABLE_DURATION mezővel adhatunk neki 1 és 3600 közé eső értéket
+illetve 0 esetén mindig felfedezhető marad a készülék
+itt is párbeszédablak jelenik meg a felhasználó engedélyét kérve
+ha a felhasználó nem engedélyezi akkor RESULT_CANCELED-el térünk vissza
+FONTOS: ha a bluetooth nincs engedélyezve, akkor ez automatikusan engedélyezi a Bluetooth-t
+ha szeretnénk értesülni a felfedezhetőségi mód változásáról, akkor
+BroadcastReceiver-re tudunk feliratkozni: ACTION_SCAN_MODE_CHANGED
+ez extra mezőket tartalmaz: EXTRA_SCAN_MODE, EXTRA_PREVIOUS_SCAN_MODE
+lehetséges értékei: SCAN_MODE_CONNECTABLE_DISCOVERABLE, SCAN_MODE_CONNECTABLE, SCAN_MODE_NONE
+hogy képes kapcsolatot fogadni és felfedezhető módban van, képes kapcsolódni de nem felfedezhető, nem felfedezhető és nem képes kapcsolódni
+nem kell végig felfedezhetőnek lennie az eszköznek, csak amíg felveszi vele a kapcsolatot a másik eszköz
+
+kapcsolat két eszköz között
+az egyik a szerver, a másik a kliens
+szerveren serversocket van, kliensen kliens socket-hez
+a kliens a szerver MAC-címére kapcsolatot indítanunk
+ha sikerült, kialakul egy input és egy output stream a kommunikációra
+a BluetoothSocketet a szerver akkor kapja meg, amikor elfogadta egy kliens kapcsolódását
+a kliens pedig akkor kapja, amkikor megnyit egy RFCOMM csatornát a szerverre
+az egyik megoldás, hogy minden fél automatikusan kap egy nyitott server socketet és figyeli a kapcsolódást
+ezek után kapcsolatot kezdeményezhet a másik felé és átvált kliensre
+a másik módszer, hogy van egyetlen szerver host, a másik eszköz pedig ehhez tud csatlakozni
+ha az eszközök nincsenek párosítva, akkor az Android ezen a ponton automatikusan párosítási kérelmet dob fel
+az RFCOMM itt addig blokkolva áll, maíg sikeres nem lesz a párosítás, vagy ha a felhasználó kilép a párosításból, vagy sikertelen a párosítás, vagy timeout-ra fut a párosítás
+az UUID egy 128 bites sztring, ami egyedi azonosítóként szolgál a szolgáltatáshoz, neten erre van sok generátor
+létre kell hozni szerver oldalon egy BluetoothServerSocketet és a
+listenUsingRfcommWithServiceRecord(nev, UUID) metódust egy a szerver tetszőleges nevével és egy egyedi UUID-el meg kell hívni, ezek az SDP Service Discovery Protocol-hoz kellenek
+az accept() metódus meghívásával a szerver elkezdi fogadni a csatlakozási kérelmeket
+ha a szerverhez sikeresen csatlakozik egy kliens és a szerver accept() metódussal elfogadja, akkor visszatér egy BluetoothSocket-el, ami azzal a kliensel való kapcsolatot reprezentálja,
+aki akkor felcsatlakozott
+ha nem akar a szerver több kapcsolatot fogadni, akkor a close() metódussal lezárja a szervert
+ez felszabadít mindent, de a meglévő BluetoothSocketek-et nem zárja be
+az RFCOMM-nál egy időben egy csatornán csak egyetlen klienst engedélyezett
+így legtöbbször a kliens csatlakozása után rögtön close()-t lehet hívni
+az accept() metódust, mivel ez egy blokkoló hívás, nem szabad a fő aktivitásban meghívni, mert az alkalmazás többi iterakcióját is blokkolja
+minden BluetoothServersSocket vagy BluetoothSocket-et egy új szálon érdemes kezelni
+így a blokkolt accept() hívást egy másik szálból a close() meghívásával meg tudjuk szakítani
+például egy egy kliens esetén, a szálban van egy while ciklus, ami körbe, körbe fut és egy socket-be elment egy BluetoothSocket-et, ha valaki sikeresen tudott csatlakozni
+egy feltétel ebben a végtelen ciklusban azt figyeli, hogy a socket üres-e, ha már nem, akkor meghívjuk a másik szálat, ami menedzseli (erre még visszatérünk) a nyitott socket-ünket, majd lezárjuk a szerver, hiszen több kapcsolatot nem képes fogadni, végül egy break kilép a végtelen ciklusból
+accept-nél már a létrejött kapcsoalt alapból nyitva van, nem kell nekünk külön nyitni a connect()-el szerver oldalon (csak kliensen kell)
+
+csatlakozás kliens oldalon
+meg kell szereznünk felderítéssel, vagy a párosított eszközök között a szerver BluetoothDevice objektumát
+erre meg kell hívnunk a createRfcommSocketToServiceRecord8uuID) metódust a szerver szolgáltatásanak UUID-jével
+itt a connect()-el kezdeményezni kell a kapcsolatot, ez szintén egy blokkoló folyamat
+ha a csatlakozás sikeres, akkor a connect visszatér ebből a blokkolásból
+ha a kapcsolat nem jön létre 12mp alatt körülbelül, akkor kivételt kell dobni
+a connect()-et is egy elkülönített szálban kell futtatni
+ha felderít éppen a készülék, akkor a csatlakozási kísérlet jelentősen lelassul, nem szabad közben felderíteni, ezért a canceldiscovery metódust mindig meg kell hívni csatlakozás előtt
+ha szeretnénk ellenőrizni, hogy fut-e egyáltalán és nem csak mindig meghívni, akkor az isDiscovering() metódussal ellenőrizhetjük
+a menedzselést itt is a későbbi részben magyarázzuk
+a close()-t mindig meg kell hívni hogy az erőforrásokat megtisztítsa, amikor lezárja a kapcsolatot
+
+a kapcsolat menedzselésénél az Input és Output stream-et meg tudjuk kapni a getInputStream és getOutputStrem metódusokkal, olvasni a bemenetiről a read(byte[]), írni a kimenetire a write(byte[]) metódusokkal tudunk
+a read és write szintén blokkolják a hívásokat ezért célszerű egy külön dedikált szálat létrehozni nekik
+a read blokkol, amíg van valami amit olvashat még
+a write általában nem blokkol, csak ha az olvasó fél nem olvas elég gyorsan és a puffer megvan telve, így nem tudunk többet írni bele
+tehát a fő szál az inputStream-é, és külön szálon van az OutputStream
+az input stream-et végtelen ciklusban olvassk és ha van rajta kiolvasott byte, akkor egy handler-en keresztül elküldjük az adatokat a szülő osztálynak és olvasunk tovább a végtelen ciklusban a következő adatig
+a fő aktivitásból egyszerűen meghívhatjuk a write() metódust, ami meghívja a writye(byte[]) metódus, amivel adatokat küldünk a távoli eszközre
+a cancel metódus azért kell, hogy bármikor tudjuk bezárni a kapcsolatot a BluetoothSocket bezárásával, ezt mindig megtesszük, amikor a Bluetooth csatlakozik
