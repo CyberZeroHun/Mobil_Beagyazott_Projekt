@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     final EszkozAdapter bt_eszkozok_sajatadapter=new EszkozAdapter();
     final EszkozAdapter bt_eszkozok_sajatadapter2=new EszkozAdapter();
+    private ListView lista;
+    private Button gomb3;
     private final BroadcastReceiver figy = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -32,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
                 //kinyerjük belőle az eszközt, mármint az intent-ből
                 BluetoothDevice eszk=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 bt_eszkozok_sajatadapter2.eszkozok.add(new Eszkoz(eszk.getName(), eszk.getAddress()));
+                ((BaseAdapter) lista.getAdapter()).notifyDataSetChanged();
             } else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(akcio)){
                 if(bt_eszkozok_sajatadapter2.getCount()==0){
                     bt_eszkozok_sajatadapter2.eszkozok.add(new Eszkoz("Nincs felderíthető eszköz!", ""));
                 }
+                ((BaseAdapter) lista.getAdapter()).notifyDataSetChanged();
+                gomb3.setText(getString(R.string.gomb3_be));
             }
         }
     };
@@ -62,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button gomb2 = (Button) findViewById(R.id.gomb2);
-        final ListView lista = (ListView) findViewById(R.id.bt_eszk_lista);
+        lista = (ListView) findViewById(R.id.bt_eszk_lista);
         gomb2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bt_eszkozok_sajatadapter.ListaTorles();
                 Set<BluetoothDevice> parositottak = bt_adapter.getBondedDevices();
-                if(parositottak.size()>0){
+                if (parositottak.size() > 0) {
                     for (BluetoothDevice eszk : parositottak) {
                         bt_eszkozok_sajatadapter.eszkozok.add(new Eszkoz(eszk.getName(), eszk.getAddress()));
                     }
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         szuro = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         this.registerReceiver(figy, szuro); //le is kell regisztrálni az onDestroy-ban (a kettő együtt leiratkozódik)
 
-        final Button gomb3= (Button) findViewById(R.id.gomb3);
+        gomb3= (Button) findViewById(R.id.gomb3);
         gomb3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
