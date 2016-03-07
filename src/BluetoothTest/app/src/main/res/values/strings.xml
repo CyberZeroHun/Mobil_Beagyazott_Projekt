@@ -4,4 +4,6 @@
     <string name="gomb2">Párosított eszközök</string>
     <string name="gomb3_be">Eszközfelderítés BE</string>
     <string name="gomb3_ki">Eszközfelderítés KI</string>
+    <string name="gomb4_be">Saját eszköz felfedezhető BE</string>
+    <string name="gomb4_ki">Saját eszköz felfedezhető KI</string>
 </resources>

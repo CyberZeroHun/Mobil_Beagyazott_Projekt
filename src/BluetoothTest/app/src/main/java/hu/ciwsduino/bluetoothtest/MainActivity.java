@@ -1,5 +1,6 @@
 package hu.ciwsduino.bluetoothtest;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -17,14 +18,15 @@ import android.widget.ListView;
 
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
    public static final int REQUEST_ENABLE_BT = 1;
+    public static final int REQUEST_ENABLE_FELFEDEZHETO = 2;
 
     final EszkozAdapter bt_eszkozok_sajatadapter=new EszkozAdapter();
     final EszkozAdapter bt_eszkozok_sajatadapter2=new EszkozAdapter();
     private ListView lista;
-    private Button gomb3;
+    private Button gomb3,gomb4;
     private final BroadcastReceiver figy = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -34,14 +36,24 @@ public class MainActivity extends AppCompatActivity {
             if(BluetoothDevice.ACTION_FOUND.equals(akcio)){
                 //kinyerjük belőle az eszközt, mármint az intent-ből
                 BluetoothDevice eszk=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                bt_eszkozok_sajatadapter2.eszkozok.add(new Eszkoz(eszk.getName(), eszk.getAddress()));
-                ((BaseAdapter) lista.getAdapter()).notifyDataSetChanged();
+                if (eszk.getBondState() != BluetoothDevice.BOND_BONDED) { //csak akkor jelezze ki, ha nincs már párosítva
+                    bt_eszkozok_sajatadapter2.eszkozok.add(new Eszkoz(eszk.getName(), eszk.getAddress()));
+                    ((BaseAdapter) lista.getAdapter()).notifyDataSetChanged();
+                }
             } else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(akcio)){
                 if(bt_eszkozok_sajatadapter2.getCount()==0){
                     bt_eszkozok_sajatadapter2.eszkozok.add(new Eszkoz("Nincs felderíthető eszköz!", ""));
                 }
                 ((BaseAdapter) lista.getAdapter()).notifyDataSetChanged();
                 gomb3.setText(getString(R.string.gomb3_be));
+            } else if(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED.equals(akcio)){
+                int elozo = intent.getIntExtra(BluetoothAdapter.EXTRA_PREVIOUS_SCAN_MODE,BluetoothAdapter.ERROR);
+                int most = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE,BluetoothAdapter.ERROR);
+                if(most!=BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE){ //így hibákra is visszavált, de így a jó
+                    //ha most változott és már nem felfedezhetőre
+                    //akkor visszaállíthatom a gomb feliratát, hogy ismét megnyomhassák
+                    gomb4.setText(getString(R.string.gomb4_be));
+                }
             }
         }
     };
@@ -96,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         gomb3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gomb3.getText()==getString(R.string.gomb3_be)) {
+                if (gomb3.getText() == getString(R.string.gomb3_be)) {
                     bt_eszkozok_sajatadapter2.ListaTorles();
                     lista.setAdapter(bt_eszkozok_sajatadapter2);
                     if (bt_adapter.isDiscovering()) {
@@ -112,6 +124,40 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //regisztrálás az BroadCastReceiver-re, hogy változott az eszközünk felderíthetősége
+        szuro = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
+        this.registerReceiver(figy, szuro); //le is kell regisztrálni az onDestroy-ban (a három együtt leiratkozódik)
+        gomb4= (Button) findViewById(R.id.gomb4);
+        final Intent felfedezheto = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE); //kihoztam, hogy ne hozzon létre mindig új példányt
+        gomb4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gomb4.getText()==getString(R.string.gomb4_be)) {
+                    felfedezheto.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,300);
+                    startActivityForResult(felfedezheto,REQUEST_ENABLE_FELFEDEZHETO);
+                    gomb4.setText(getString(R.string.gomb4_ki));
+                } else {
+                    //a felfedezhetőséget csak úgy kapcsolhatjuk ki, ha 1mp-re állítjuk vissza és az gyorsan lejár
+                    //ekkor már nem kérdezi meg a felhasználót, mert egyszer már megkérdeztük és elfogadta
+                    felfedezheto.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1);
+                    startActivityForResult(felfedezheto, REQUEST_ENABLE_FELFEDEZHETO);
+                    //gomb4.setText(getString(R.string.gomb4_be)); //ez magától állítja ha lejárt
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_ENABLE_FELFEDEZHETO) {
+            if (resultCode==RESULT_CANCELED) {
+                //a felhasználó nem engedélyezte a felfedezhetőséget
+                gomb4.setText(getString(R.string.gomb4_be));
+            }
+        }
     }
 
     @Override

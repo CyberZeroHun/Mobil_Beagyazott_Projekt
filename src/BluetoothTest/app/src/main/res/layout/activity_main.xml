@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="@string/gomb3_be"
         android:textAlignment="center" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/gomb4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gomb4_be"
+        android:textAlignment="center" />
 </LinearLayout>
