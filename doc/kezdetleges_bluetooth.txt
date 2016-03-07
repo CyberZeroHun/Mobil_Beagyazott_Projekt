@@ -143,3 +143,27 @@ tehát a fő szál az inputStream-é, és külön szálon van az OutputStream
 az input stream-et végtelen ciklusban olvassk és ha van rajta kiolvasott byte, akkor egy handler-en keresztül elküldjük az adatokat a szülő osztálynak és olvasunk tovább a végtelen ciklusban a következő adatig
 a fő aktivitásból egyszerűen meghívhatjuk a write() metódust, ami meghívja a writye(byte[]) metódus, amivel adatokat küldünk a távoli eszközre
 a cancel metódus azért kell, hogy bármikor tudjuk bezárni a kapcsolatot a BluetoothSocket bezárásával, ezt mindig megtesszük, amikor a Bluetooth csatlakozik
+
+saját profile-ok írásához implementálni kell a BluetoothProfile interface-találtunk
+de használhatunk beépítetteket is: Headset, A2DP, Health Device
+ezeknél a bluetooth beállítása után a getProfileProxy() metódussal kapcsolódva a profilt alkalmazva csatlakozunk, a profilproxy leszármazottja például a BluetoothHeadset
+fel kell iratkoznunk egy BluetoothProfile.ServiceListener-re, ez értesíti a szolgáltatás klienseit a csatlakozásról, lecsatlakozásról
+a profileproxy objektumhoz kapunk egy handle-t az onServiceConnected() meghívásakor
+a proxy objektumot tudjuk használni, hogy a kapcsolat állapotát nyomon kövessük, illetve a profil-ra releváns műveleteket is itt végezhetünk el
+
+AT parancsokat egy ACTION_VENDOR_SPECIFIC_HEADSET_EVENT broadcast receiver-re feliratkozva kaphatunk meg például egy fülhallgatótól
+
+HDP, egészségügyi kütyük használata
+BluetoothHealth proxy objektumot kell létrehozni
+itt is getProfileProxy() metódust kell hívni
+BluetoothPrfogile.ServiceListener HEALTH profil
+itt létre kell hozni egy BluetoothHealthCallback-et és reisztrálni kell egy BluetoothHealthAppConfiguration alkalmazás konfigurációt
+csatlakoztatni kell az egészségügyi eszközt
+read és write segítségével használjuk a fájlokat, a kapott adatokat megfelelő IEEE szabvány szerinte kell értelmezni, ami eszközönként eltér
+ha kész, be kell zárni az alkalmazást, és a csatorna bezáródik ha hosszabb inaktivitást észlel
+
+http://developer.android.com/guide/topics/connectivity/bluetooth.html
+http://developer.android.com/reference/android/bluetooth/package-summary.html
+http://developer.android.com/guide/topics/connectivity/bluetooth-le.html
+http://developer.android.com/reference/android/bluetooth/le/package-summary.html
+https://www.bluetooth.com/what-is-bluetooth-technology
