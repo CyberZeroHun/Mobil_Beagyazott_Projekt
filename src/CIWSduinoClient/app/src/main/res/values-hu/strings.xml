@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CIWSduino Kliens</string>
+    <string name="testText">Teszt szöveg...</string>
+    <string name="dev">Készítők</string>
+    <string name="aa">Ambrus Attila</string>
+    <string name="zc">Zisis Christoforos</string>
+</resources>

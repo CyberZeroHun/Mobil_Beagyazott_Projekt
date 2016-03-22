@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CIWSduino Client</string>
+    <string name="testText">Test text...</string>
+    <string name="dev">Developers</string>
+    <string name="aa">Attila Ambrus</string>
+    <string name="zc">Christoforos Zisis</string>
+</resources>
