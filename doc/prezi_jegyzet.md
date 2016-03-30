@@ -1,3 +1,5 @@
+https://prezi.com/9topfiv9rn98/ciws/
+
 #C.I.W.S Beágyazott alapokon
 ## Mi az a C.I.W.S
 Close In Weapon System: Önálló autonóm védelmi fegyver.
