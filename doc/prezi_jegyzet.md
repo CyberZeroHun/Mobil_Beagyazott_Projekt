@@ -13,7 +13,8 @@ A lövedékek követésére a célzás pontosítása miatt van szükség.
 ### Infravörös kamera
 Lassab célpontok (motorcsónak, drónok) bemérésére használt szenzor.
 ### Commercial felhasználás (paintball sentry)
-A paintball sentry boltban is megvásárolható autonóm fegyver. Ebben a formályában ugyan nem 
+A paintball sentry boltban is megvásárolható autonóm fegyver. Ebben a formályában ugyan nem CIWS, de érdemes megemlíteni.
+
 
 
 
@@ -22,6 +23,8 @@ A paintball sentry boltban is megvásárolható autonóm fegyver. Ebben a formá
 Projekt céljának összefoglalása 1 mondatban (CIWS rendszer építése, arduino + pi)
 
 # 2. slide
+** Két része van. Az autonóm szót külön kiemeltem, az autonóm rész magyarázásához**
+
 A CIWS elmagyarázása az autonóm fegyverekből kiindulva:
 - Mit nevezünk autonóm fegyvernek
 - Mit csinál a CIWS.
@@ -30,7 +33,6 @@ Az olyan pont védelmi fegyver rendszereket, melyeket elsősorban csak repülő 
 - fix- és forgószárnyas repülők
 - rakéták 
 - tüzérségi gránátok.
-
 
 (Itt esetleg meg lehet említeni, hogy milyen nehéz feladatról is van szó: Egy apró nagyon gyors tárgy eltalálása még apróbb tárgyakkal egy mozgó járműről úgy, hogy az apró tárgy amit el akarok találni el akarja kerülni azt, hogy eltalálják) vagy valami ilyesmi. 
 
@@ -41,7 +43,7 @@ A Phalanx bemutatása. 2 különböző radar:
 Nem hiszem, hogy nagyon kéne magyarázni a radarokat. Molnár András amúgy is mesélni akar majd róla. Vagy már meg is tette az előadás előtt.
 
 # 4. slide
-Egy kép a Goalkeeperről
+Egy kép a Goalkeeperről. Ha nem egyértelmű a nyilakból, akkor érdemes lenne mondani, hogy a baloldali a keresőradar a másik pedig a követő.
 
 # 5. slide
 Paintball sentry bemutatása
@@ -50,8 +52,17 @@ Ez a cucc már csak egy kamerát használ a célpont bemérésére. Követni tud
 Van olyan implementációja, ami csak egy bizonyos színű tárgyat tud követni.
 
 # 6. slide
+Ciwsduino + logo. A projekt céljának bemutatása néhány szóban. 
 
-Ide jön majd a mi projektünk részletesebb bemutatása
+# 7. slide
+A projekt fő részeinek rövid bemutatása. A 3 fő rész egymás után jelenik meg. (Arduino, Raspberry, Android)
+Tényleg csak néhány szóban kéne elmondani, hogy mi a feladatuk
 
+**Arduino: ** Szenzor adatok gyűjtése, terület megfigyelése és a célpont megsemmisítése.
 
+**Raspberry: ** Kamerakép rögzítése és továbbítása androidra
+
+**Android: ** Kommunikáció a két másik rendszerrel; Kézi vezérlés; Beállítások
+
+# 8. slide
 # vége: ha van idő egy király CIWS videóra, akkor még az is mehet
