@@ -64,5 +64,46 @@ Tényleg csak néhány szóban kéne elmondani, hogy mi a feladatuk
 
 **Android: ** Kommunikáció a két másik rendszerrel; Kézi vezérlés; Beállítások
 
-# 8. slide
+# 8. slide (Az arduino-s rész)
+Csak annyit kéne mondani, hogy most ezt a részt fogod bővebben bemutatni és már menni is a következőre
+
+# 9. slide 
+Az egész egy kép a mikrokontrollerről. Fontosabb paraméterek bemutatása
+
+# 10. slide (szenzorok)
+## hc-sr04
+Ultrahangos távolságmérő. Hogyan használjuk radarnak.
+Megemlíthető az implementáció (milyen algoritmusok)
+## hc-sr501
+Mozgásérzékelő. Mozgás esetén aktiválja a radart.
+## mpu-6050
+Gyro és gyorsulásmérő. Sérülések detektálására.
+
+## 11. slide (3d nyomtatott alkatrészek)
+3D nyomtatott alkatrészek. Miért nyomtattunk, miket nyomtattunk és miket nem nyomtattunk :) 
+
+# 12. slide (A Raspberry-s rész)
+Szintén csak anniyt kéne mondani, hogy a raspberry-s rész bemutatása. 
+
+# 13. slide
+Kép a Raspberry-ről. Raspberry Pi 2 model b rövid ismertető.
+1gb ram, 800 Mhz Quad core, SD kártya. Raspbian (Debian Jessie)
+
+# 14. slide
+Kameramodul a pi-hez. 
+5mp 2592x1944; OmniVision 5647
+
+# 15. slide (Az androidos rész)
+Az androidos rész bemutatása. 
+Interfészek: Bluetooth és WiFi
+
+Az alkalmazás célja:
+1. A két másik modulból érkező információk megjelenítése
+2. Manuális vezérlés
+3. Beállítások
+
+# 16. slide (Bluetooth)
+ 
+
+
 # vége: ha van idő egy király CIWS videóra, akkor még az is mehet
