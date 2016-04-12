@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/LinearLayout1" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <Button android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:text="Adapter ellenőrzése" android:id="@+id/checkAdapter" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <Button android:layout_alignParentLeft="true" android:layout_below="@+id/checkAdapter" android:text="Felderíthetőség engedélyezése" android:id="@+id/discoverable" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <Button android:layout_alignParentLeft="true" android:layout_below="@+id/scan" android:text="Szerver indítás" android:id="@+id/serverStart" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <Spinner android:layout_alignParentLeft="true" android:layout_below="@+id/serverStart" android:layout_width="fill_parent" android:id="@+id/devices" android:layout_height="wrap_content" android:layout_toLeftOf="@+id/scan"></Spinner>
+    <EditText android:layout_alignParentLeft="true" android:layout_below="@+id/connect" android:layout_width="fill_parent" android:id="@+id/message" hint="Üzenet" android:layout_height="wrap_content" />
+    <Button android:layout_alignParentLeft="true" android:layout_below="@+id/message" android:text="Küldés" android:id="@+id/send" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <TextView android:layout_alignParentLeft="true" android:layout_below="@+id/send" android:text=" ----- Üzenetek ----- " android:id="@+id/chat" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/scan" android:text="felderítés" android:layout_alignBaseline="@+id/discoverable" android:layout_alignBottom="@+id/discoverable" android:layout_alignParentRight="true" android:layout_toRightOf="@+id/discoverable"></Button>
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/connect" android:text="Csatlakozás" android:layout_below="@+id/serverStart" android:layout_toRightOf="@+id/devices" android:layout_alignParentRight="true"></Button>
+
+    <Button
+        android:id="@+id/buttonStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/scan"
+        android:text="Stop" />
+
+</RelativeLayout>
