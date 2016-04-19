@@ -25,8 +25,8 @@ void loop(){
   for(szog=kezdo;szog<=veg;szog++){
     srv.write(szog);
     delay(2);
-    tav = sonar.ping();
-    delay(29);
+    tav = sonar.ping_median();
+    delay(145); //4*29
     
     String ki="Szog: "+(String)(szog);
     ki+=".fok Tav: "+(String)(tav/US_ROUNDTRIP_CM);
