@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Joystick">
+        <attr name="innerCircleRadious" format="dimension" />
+        <attr name="innerCircleColor" format="color" />
+        <attr name="outerCircleColor" format="color" />
+        <attr name="outerCircleWidth" format="dimension" />
+    </declare-styleable>
+</resources>
