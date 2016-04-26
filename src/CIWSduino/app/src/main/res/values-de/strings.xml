@@ -1,0 +1,12 @@
+<!-- A német nyelvű string erőforrások -->
+<resources>
+    <string name="app_name">CIWSduino</string>
+    <string name="dev">Entwickler</string>
+    <string name="aa">Ambrus Attila</string>
+    <string name="zc">Zisis Christoforos</string>
+    <string name="ultrahang">Ultraschall</string>
+    <string name="manualisvezerles">Manuelle Kontrolle</string>
+    <string name="aktivitasok">Aktivitäten</string>
+    <string name="beallitasok">Einstellungen</string>
+    <string name="nevjegy">Etwa</string>
+</resources>
