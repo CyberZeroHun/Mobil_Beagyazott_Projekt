@@ -1,0 +1,9 @@
+<!-- A magyar nyelvű string erőforrások -->
+<resources>
+    <string name="app_name">CIWSduino</string>
+    <string name="ultrahang">Ultrahang</string>
+    <string name="manualisvezerles">Manuális Vezérlés</string>
+    <string name="aktivitasok">Aktivitások</string>
+    <string name="beallitasok">Beállítások</string>
+    <string name="nevjegy">Névjegy</string>
+</resources>
