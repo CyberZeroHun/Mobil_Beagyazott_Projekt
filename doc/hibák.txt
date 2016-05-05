@@ -1,0 +1,22 @@
+P N | P N
+============
+z n | z n || helyes, Pmos:-3,1 .. -4,1 ; Nmos:0,9 .. 1,9 | BE:3,3V KI:0
+z n | z z || 
+z n | n z || 
+z n | n n || 
+n z | z n || 
+n z | z z || LOW p=-5,1 BE:0V KI:2,5
+n z | n z || helyes, Pmos:-3,1 .. -4,1 ; Nmos:0,9 .. 1,9 | BE:0V KI:5V
+n z | n n || soha, p=1000 melett is n z marad
+
+p LOW-ra nyit, n HIGH-ra nyit
+
+p >-4,2 nem nyit amikor kéne
+p <-3,1 olyankor is nyit, amikor nem kéne (1,9 már alacsony jel)
+n >1,9 olyankor is nyit, amikor nem kéne (2 már magas jel)
+n <0,9 nem nyit amikor kéne
+
+Pmos:-3,1<=Th<=-4,1 | Nmos:0,9<=Th<=1,9
+
+(SZINT,P, N)
+
