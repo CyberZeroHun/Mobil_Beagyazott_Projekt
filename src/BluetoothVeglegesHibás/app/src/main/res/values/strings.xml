@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">BluetoothVegleges</string>
+
+    <string name="en">Én:</string>
+
+    <string name="nincs_bluetooth">Az Ön eszközében nincs BlueTooth!</string>
+    <string name="hiba_bluetooth">Ez a rész BlueTooth nélkül nem üzemel!</string>
+    <string name="nem_kapcsolta_be">Kikapcsolt Bluetooth-al nem működik az alkalmazás!</string>
+    <string name="uzenet_elkuldve">A következő üzenet lett elküldve:</string>
+    <string name="hiba_csatlakozas">Nem lehet csatlakozni az eszközhöz!</string>
+    <string name="hiba_megszakadt">A kapcsolat az eszközzel megszakadt!</string>
+    <string name="nincs_felderitheto">"Nincs felderíthető eszköz!"</string>
+    <string name="sikeres_csatlakozas">Sikeres csatlakozás:</string>
+
+    <string name="menu_csatlakozas">Csatlakozás</string>
+    <string name="menu_felfedezheto">Felfedezhetővé tétel</string>
+    <!--
+    <string name="menu_bt_bekapcs">BlueTooth bekapcsolása</string>
+    -->
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

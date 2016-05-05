@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BluetoothTest</string>
+    <string name="gomb1_szoveg">Van bluetooth, be van kapcsolva?</string>
+    <string name="gomb2">Párosított eszközök</string>
+    <string name="gomb3_be">Eszközfelderítés BE</string>
+    <string name="gomb3_ki">Eszközfelderítés KI</string>
+    <string name="gomb4_be">Saját eszköz felfedezhető BE</string>
+    <string name="gomb4_ki">Saját eszköz felfedezhető KI</string>
+    <string name="figyel_s">Figyelés</string>
+    <string name="csatlakoz_s">Csatlakozás</string>
+    <string name="zenet_k_ld_s">Üzenet Küldés</string>
+</resources>

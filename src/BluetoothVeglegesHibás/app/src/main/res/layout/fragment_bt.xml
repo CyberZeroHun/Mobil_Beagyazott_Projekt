@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hu.uniobuda.nik.bluetoothvegleges.BTFragment">
+
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/eszkoz_lista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
