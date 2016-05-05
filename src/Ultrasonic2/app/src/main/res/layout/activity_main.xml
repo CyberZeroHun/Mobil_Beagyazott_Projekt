@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="hu.ciwsduino.ultrasonic.MainActivity">
+
+    <hu.ciwsduino.ultrasonic.UltrasonicView
+        android:id="@+id/ultrahang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:tavolsag="500"
+        custom:tavolsag_osztok="10"
+        custom:szog="120"
+        custom:szog_osztok="8"
+        android:background="@color/black"
+        custom:vonal_szin="@color/dark_green"
+        custom:szoveg_szin="@color/green"
+        custom:mert_vonal_szin="@color/yellow"
+        custom:korvonal_szin="@color/blue"
+        custom:mutato_szin="@color/red"
+        custom:mutato_haromszog_szin="@color/transp_green"
+        />
+</RelativeLayout>
