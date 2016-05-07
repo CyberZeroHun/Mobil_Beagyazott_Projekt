@@ -7,7 +7,7 @@ public final class GlobalisKonstansok {
     public final static String GITHUB_LINK = "https://github.com/CyberZeroHun/Mobil_Beagyazott_Projekt/";
     public final static String AA_EMAIL = "ambrus.attila@stud.uni-obuda.hu";
     public final static String ZC_EMAIL = "forisz.zisis@gmail.com";
-    public final static String AKTIVITASOK_LINK = "http://google.com";
+    public final static String AKTIVITASOK_LINK = "http://www.ciwsduino.webtelek.hu/aktivitas.php";
     public static String ipAddress = null;
 
     private GlobalisKonstansok() {
