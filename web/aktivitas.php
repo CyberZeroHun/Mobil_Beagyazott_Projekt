@@ -24,9 +24,7 @@
 		$e3->tav = "47cm";	
 			
 	//létrehozunk egy új tömböt az aktivitásoknak
-	$a=array();
-	//beletöltjük őket a tömbbe
-	array_push($a,array("aktivitas" => $e1),array("aktivitas" => $e2),array("aktivitas" => $e3));
+	$a=array("aktivitasok" => array	($e1,$e2,$e3));
 	
 	//kiiratjuk a json választ
 	echo json_encode($a);

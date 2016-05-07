@@ -69,7 +69,7 @@ public class AktivitasokFragment extends Fragment {
                 //kinyerjük a gyökér elemet
                 JSONObject jo = new JSONObject(jsonFromhtml);
                 //abból kinyerjük az első szinten az összes aktivitás objektumot
-                JSONArray ja = jo.getJSONArray("aktivitas");
+                JSONArray ja = jo.getJSONArray("aktivitasok");
 
                 String ido;
                 int szog, tav;
