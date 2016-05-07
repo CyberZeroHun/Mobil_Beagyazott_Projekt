@@ -1,12 +1,9 @@
 package hu.uniobuda.nik.ciwsduino;
-
-/**
- * Created by thecy on 2016. 05. 07..
- */
 /*
-Saját osztály, amelyben az aktivitás objektumokat fogjuk eltárolni.
-*/
-public class AktivitasObject {
+ * Created by thecy on 2016. 05. 07..
+ * Aktivitásokat leíró saját osztály
+ */
+public class Aktivitas {
 
     //változók
     private String ido;
@@ -14,7 +11,7 @@ public class AktivitasObject {
     private int tav;
 
     //a konstrulktor
-    public AktivitasObject(String ido, int szog, int tav) {
+    public Aktivitas(String ido, int szog, int tav) {
         this.ido = ido;
         this.szog = szog;
         this.tav = tav;

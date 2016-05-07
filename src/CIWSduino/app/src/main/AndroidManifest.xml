@@ -4,6 +4,7 @@
 
     <!-- Internet jogkört kérünk mert az aktivitásokat netről kapjuk -->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name"
+            android:theme="@style/AlapTema">
         </activity>
 
         <!-- Hogy programkódból a MainActivity-hez is hozzáférjünk fel kell itt venni. -->

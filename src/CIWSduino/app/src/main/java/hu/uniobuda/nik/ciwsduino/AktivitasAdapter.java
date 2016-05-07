@@ -13,15 +13,15 @@ import java.util.List;
  */
 public class AktivitasAdapter extends BaseAdapter {
 
-    List<AktivitasObject> aktivitasok;
+    public List<Aktivitas> aktivitasok;
 
     //üreset létrehozó konstruktor
     public AktivitasAdapter(){
-        aktivitasok= new ArrayList<AktivitasObject>();
+        aktivitasok= new ArrayList<Aktivitas>();
     }
 
     //már feltöltöttet létrehozó konstruktor
-    public AktivitasAdapter(List<AktivitasObject> eszkozok) {
+    public AktivitasAdapter(List<Aktivitas> eszkozok) {
         this.aktivitasok = eszkozok;
     }
 
@@ -46,7 +46,7 @@ public class AktivitasAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AktivitasObject akt = aktivitasok.get(position);
+        Aktivitas akt = aktivitasok.get(position);
         AtmenetiTarolo temp;
 
         if(convertView==null){ //ha még nem volt újrahasznosítás
@@ -78,7 +78,9 @@ public class AktivitasAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void Hozzaadas( AktivitasObject a){
+
+
+    public void Hozzaadas( Aktivitas a){
         aktivitasok.add(a);
     }
 

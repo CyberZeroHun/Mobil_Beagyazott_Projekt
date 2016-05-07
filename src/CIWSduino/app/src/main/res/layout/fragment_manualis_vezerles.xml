@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/cim_szoveg_meret"
         android:text="@string/manualisvezerles"/>
+
+    <hu.uniobuda.nik.joystick.Joystick
+        android:id="@+id/joystick"
+        app:innerCircleColor="@color/colorAlap"
+        app:outerCircleColor="@color/colorAlapSotet"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:innerCircleRadius="40dp"
+        app:innerCircleStyle="FILL"
+        app:outerCircleStyle="FILL"
+
+        />
+
+    <Button
+        android:id="@+id/go_to_fullscreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fkjashdfajsd"
+        />
 </RelativeLayout>
