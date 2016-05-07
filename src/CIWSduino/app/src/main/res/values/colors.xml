@@ -2,7 +2,9 @@
 <resources>
     <color name="colorAtlatszo">#00000000</color>
     <color name="colorFekete">#000000</color>
+    <color name="colorFeher">#ffffff</color>
     <color name="colorAlap">#00ace7</color>
     <color name="colorAlapSotet">#0091d2</color>
     <color name="colorHangsulyos">#004a78</color>
+    <color name="colorVilagosSzurke">#cbcccc</color>
 </resources>

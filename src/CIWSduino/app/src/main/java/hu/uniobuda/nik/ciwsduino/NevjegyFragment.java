@@ -1,10 +1,18 @@
 package hu.uniobuda.nik.ciwsduino;
 
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +29,10 @@ public class NevjegyFragment extends Fragment {
 
     AppCompatTextView tv;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         //beinflate-elem a fragment-be az xml tartalmát
         return inflater.inflate(R.layout.fragment_nevjegy, container, false);
     }
@@ -37,8 +40,11 @@ public class NevjegyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //A TextView, amelynek a szövegével műveleteket fogunk végezni
         tv = (AppCompatTextView) getView().findViewById(R.id.nevjegysz);
-        //egybeformázom a névjegy szövegét
+
+        //Különböző szövegek egybeépítése erőforrásokból
         Resources res = getResources();
         String szoveg = String.format(
                     res.getString(R.string.nevjegy_szoveg),
@@ -50,13 +56,48 @@ public class NevjegyFragment extends Fragment {
                     res.getString(R.string.aa),
                     AA_EMAIL,
                     res.getString(R.string.zc),
-                    ZC_EMAIL
+                    ZC_EMAIL,
+                    res.getString(R.string.projekt)
         );
-        tv.setText(szoveg);
-        //TODO: több szót összekapcsolni reguláris kifejezéssel (a szó csak egyszer szerepeljen, és
-        //TODO: csak az egyik
-        //TODO: megtalálni hogy lehet ugyanezzel a módszerrel színezni egy szövegrészt a textView-ban
-        //TODO: bepozícionálni a nézetet
-        Linkify.addLinks(tv,Pattern.compile(AA_EMAIL),"mailto:"+AA_EMAIL);
+
+        /*
+        Az alábbi rész segítségével formázzuk a TextView kívánt részeit
+        */
+        int c = ContextCompat.getColor(getContext(), R.color.colorAlap);
+        Spannable sp = new SpannableString(szoveg);
+
+        //amiket ki szeretnénk színezni
+        String[] s = new String[]{
+                res.getString(R.string.app_name)+" "+res.getString(R.string.projekt),
+                res.getString(R.string.dev),
+                "GitHub Repository:",
+                res.getString(R.string.nev),
+                res.getString(R.string.email)
+        };
+        int honnan;
+        for (String mit:s) {
+            //az aktuális szó előfordulásait bejárjuk a szövegben
+            honnan = -1;
+            int hossz = mit.length();
+            do {
+                honnan = szoveg.indexOf(mit, honnan + 1);
+                if (honnan >= 0) {
+                    //amelyeket csak alá szeretnénk húzni
+                    if( (mit.equals(res.getString(R.string.app_name)+" "+res.getString(R.string.projekt))) || (mit.equals(res.getString(R.string.dev)))){
+                        sp.setSpan(new UnderlineSpan(), honnan, honnan + hossz, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else {
+                        //a többit mind színezni szeretnénk
+                        sp.setSpan(new ForegroundColorSpan(c), honnan, honnan + hossz, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            } while (honnan >= 0);
+        }
+
+        tv.setText(sp);
+
+        //Hivatkozások linkekké való átalakítása
+        Linkify.addLinks(tv, Linkify.WEB_URLS);
+        Linkify.addLinks(tv,Pattern.compile(AA_EMAIL),"mailto:");
+        Linkify.addLinks(tv,Pattern.compile(ZC_EMAIL),"mailto:");
     }
 }
