@@ -9,4 +9,5 @@
     <string name="aktivitasok">Activities</string>
     <string name="beallitasok">Settings</string>
     <string name="nevjegy">About</string>
+    <string name="nevjegy_szoveg">%1$s Project:\r\n\r\nGitHub Repository:\r\n%2$s\r\n\r\n%3$s:\r\n\r\n%4$s %6$s\r\n%5$s %7$s\r\n\r\n%4$s %8$s\r\n%5$s %9$s</string>
 </resources>
