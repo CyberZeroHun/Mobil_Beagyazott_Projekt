@@ -1,1 +1,1 @@
-include ':app', ':joystick'
+include ':app', ':joystick', ':ultrasonic'

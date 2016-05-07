@@ -20,10 +20,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile fileTree(dir: '../joystick', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //Ez a joystick view amit mi készítettünk.
+    compile fileTree(include: ['*.jar'], dir: '../joystick')
+    //EZ az ultrasonic view amit szintén mi készítettünk
+    compile fileTree(include: ['*.jar'], dir: '../ultrasonic')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     //Ezt bele kell rakni a TabLayout-hoz
     compile 'com.android.support:design:23.3.0'
+    compile project(':joystick')
+    compile project(':ultrasonic')
 }
