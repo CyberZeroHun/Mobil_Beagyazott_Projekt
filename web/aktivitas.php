@@ -9,9 +9,6 @@
 		public $tav = "";
 	}
 
-	//létrehozunk egy új tömböt az aktivitásoknak
-	$a=array();
-
 	//létrehozunk 3 teszt aktivitást
 	$e1 = new Aktivitas();
 		$e1->ido = "2016.05.07 - 22:58:24";
@@ -25,9 +22,11 @@
 		$e3->ido = "2016.05.07 - 23:00:02";
 		$e3->szog = "98°";
 		$e3->tav = "47cm";	
-		
+			
+	//létrehozunk egy új tömböt az aktivitásoknak
+	$a=array();
 	//beletöltjük őket a tömbbe
-	array_push($a,$e1,$e2,$e3);
+	array_push($a,array("aktivitas" => $e1),array("aktivitas" => $e2),array("aktivitas" => $e3));
 	
 	//kiiratjuk a json választ
 	echo json_encode($a);

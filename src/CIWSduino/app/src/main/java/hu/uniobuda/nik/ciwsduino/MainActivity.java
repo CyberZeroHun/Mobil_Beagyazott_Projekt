@@ -1,11 +1,17 @@
 package hu.uniobuda.nik.ciwsduino;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+
+import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +24,24 @@ public class MainActivity extends AppCompatActivity {
     Ezt javítani kell még.
     Jelenleg úgy oldom meg, hogy ezen az Activity-n felülírtam a Back működését.
     */
+
+    public boolean netEngedely = false;
+    //Ez a metódus kezeli le az engedélykérésekből érkező eredményeket
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        /*
+        Marshmallow miatt le kell kezelnünk az engedélyeket.
+        Ez a módszer csak akkor jó, ha egyszerre egy engedélyt és egy eredményt dolgozunk fel.
+        */
+        switch(requestCode){
+            case INTERNET_ENGEDELY:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    netEngedely=true;
+                }
+                break;
+        }
+    }
 
     //Ebben tároljuk majd a fülekhez szükséges objektumokat.
     private ArrayList<FulFragmenObject> ffo;
@@ -96,6 +120,24 @@ public class MainActivity extends AppCompatActivity {
 
         //A TabLayout, amely a füleket fogja tartalmazni.
         tl.setupWithViewPager(vp);
+
+        /*
+        Marshmallow miatt a felhasználót meg kell kérdeznünk a permission-ökről
+        nem elég a manifest-ben felvennünk őket.
+        */
+        int permissionCheck = ContextCompat.checkSelfPermission(
+                MainActivity.this,
+                Manifest.permission.INTERNET
+        );
+        if (permissionCheck == PackageManager.PERMISSION_DENIED){
+            //ha nincs, akkor kérnünk kell
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                    Manifest.permission.INTERNET
+            },INTERNET_ENGEDELY);
+        } else {
+            //ha van, akkor jók vagyunk
+            netEngedely=true;
+        }
     }
 
     /*
