@@ -26,10 +26,10 @@ import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
  */
 public class AktivitasokFragment extends Fragment {
 
-    private class HatterbenTolt extends AsyncTask<String, Boolean, Boolean> {
+    private class HatterbenTolt extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected Boolean doInBackground(Void... params) {
 
             //mindig ürítjük a listát, mert az új eredményeket írjuk bele
             aa.ListaTorles();
@@ -119,7 +119,6 @@ public class AktivitasokFragment extends Fragment {
         lv.setAdapter(aa);
 
         //kezdetben egyszer lehúzzuk az adatokat
-        AsyncTask h = new HatterbenTolt();
-        h.execute();
+        new HatterbenTolt().execute();
     }
 }
