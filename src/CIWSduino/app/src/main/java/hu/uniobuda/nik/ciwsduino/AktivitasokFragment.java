@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
 
@@ -107,6 +109,9 @@ public class AktivitasokFragment extends Fragment {
     AktivitasAdapter aa;
     //és a ListView amely megjeleníti
     ListViewCompat lv;
+    //Timer ami néha frissíti az adatokat
+    Timer idozito;
+    TimerTask feladat;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -120,5 +125,17 @@ public class AktivitasokFragment extends Fragment {
 
         //kezdetben egyszer lehúzzuk az adatokat
         new HatterbenTolt().execute();
+
+        //majd létrehozunk egy időzítőt, ami néha checkolja az adatokat
+        idozito = new Timer();
+        feladat = new TimerTask() {
+            @Override
+            public void run() {
+                new HatterbenTolt().execute();
+            }
+        };
+
+        // az időzítő futtatása percenként
+        idozito.schedule(feladat,0,60000);
     }
 }
