@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.forisz.joystickexample.MainActivity">
+
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:text="Hello World!" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test"
+        android:text="toggle"
+        android:layout_alignEnd="@+id/joystick1" />
+
+    <com.example.forisz.joystick.Joystick
+        android:id="@+id/joystick1"
+        android:layout_alignParentBottom="true"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignParentEnd="true"
+        app:innerCircleRadius="28dp"
+        app:outerCircleColor="@color/colorPrimaryDark"
+        app:innerCircleColor="@color/colorPrimary"
+        app:lineColor="@color/colorPrimaryDark"
+        app:lineWidth="3dp"
+        app:outerCircleWidth="2dp"
+        app:resetPositionOnRelease="true"
+        app:drawCrosshair="true"
+        />
+    <com.example.forisz.joystick.Joystick
+        android:id="@+id/joystick2"
+        android:layout_alignParentBottom="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        app:innerCircleRadius="40dp"
+        app:outerCircleColor="@color/colorPrimaryDark"
+        app:innerCircleColor="@color/colorPrimary"
+        app:lineColor="@color/colorPrimaryDark"
+        app:lineWidth="3dp"
+        app:outerCircleWidth="2dp"
+        app:resetPositionOnRelease="false"
+        app:drawCrosshair="true" />
+
+    <com.example.forisz.joystick.Joystick
+        android:id="@+id/joystick3"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_alignTop="@+id/test"
+        app:innerCircleRadius="48dp"
+        app:outerCircleColor="@color/colorPrimaryDark"
+        app:innerCircleColor="@color/colorPrimary"
+        app:lineColor="@color/colorPrimaryDark"
+        app:lineWidth="3dp"
+        app:outerCircleWidth="2dp"
+        app:resetPositionOnRelease="true"
+        app:drawCrosshair="false"
+        app:animate="true"
+        />
+
+</RelativeLayout>
