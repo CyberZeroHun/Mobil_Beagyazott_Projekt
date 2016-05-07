@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 
 import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
 
@@ -57,16 +58,16 @@ public class AktivitasokFragment extends Fragment {
             byte[] buff = new byte[1024];
             //1024 byte-onként olvassuk amíg van mit
             while((hossz= is.read(buff))!= -1){
-                jsonFromhtml=jsonFromhtml.concat(buff.toString());
+                jsonFromhtml=jsonFromhtml.concat(Arrays.toString(buff));
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             //a végén próbáljuk lezárni a fájlt, ha le lehet
             try {
-                is.close();
+                if (is != null) {
+                    is.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
