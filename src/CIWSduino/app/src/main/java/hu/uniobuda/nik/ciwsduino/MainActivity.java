@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         */
         fpa = new FulPagerAdapter(getSupportFragmentManager(), ffo);
 
+
         //A viewpager beállítása.
         vp.setAdapter(fpa);
 

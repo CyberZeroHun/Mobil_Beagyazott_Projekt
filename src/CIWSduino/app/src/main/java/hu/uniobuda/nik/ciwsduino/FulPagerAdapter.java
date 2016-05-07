@@ -57,4 +57,6 @@ public class FulPagerAdapter extends FragmentPagerAdapter {
         */
         return ffo.get(hanyadik).getNev();
     }
+
+
 }

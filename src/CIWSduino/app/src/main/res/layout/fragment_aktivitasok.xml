@@ -4,5 +4,10 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/cim_szoveg_meret"
         android:text="@string/aktivitasok"/>
+    <android.support.v7.widget.ListViewCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/aktivitaslista" />
 </RelativeLayout>

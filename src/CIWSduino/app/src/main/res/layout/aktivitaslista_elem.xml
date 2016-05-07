@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ido"
+        android:text="@string/ido"
+        android:textSize="@dimen/cim_szoveg_meret" />
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/aktivitaselem_margo"
+        android:id="@+id/szog"
+        android:text="@string/szog"
+        android:layout_below="@+id/ido"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/aktivitaselem_margo"
+        android:id="@+id/tav"
+        android:text="@string/tavolsag"
+        android:layout_below="@+id/szog"
+        android:layout_alignEnd="@id/szog"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@id/szog" />
+</RelativeLayout>

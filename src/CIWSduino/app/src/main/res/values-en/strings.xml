@@ -13,4 +13,7 @@
     <string name="email">E-mail:</string>
     <string name="projekt">Project:</string>
     <string name="nevjegy_szoveg">%1$s %10$s\r\n\r\nGitHub Repository:\r\n%2$s\r\n\r\n%3$s:\r\n\r\n%4$s %6$s\r\n%5$s %7$s\r\n\r\n%4$s %8$s\r\n%5$s %9$s</string>
+    <string name="ido">Time:</string>
+    <string name="szog">Angle:</string>
+    <string name="tavolsag">Distance:</string>
 </resources>

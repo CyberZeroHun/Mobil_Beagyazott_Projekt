@@ -3,4 +3,5 @@
     <dimen name="vizszintes_margo">16dp</dimen>
     <dimen name="cim_szoveg_meret">42dp</dimen>
     <dimen name="szoveg_meret">22dp</dimen>
+    <dimen name="aktivitaselem_margo">40dp</dimen>
 </resources>
