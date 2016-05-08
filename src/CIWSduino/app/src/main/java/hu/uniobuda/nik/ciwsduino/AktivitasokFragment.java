@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,26 +28,28 @@ import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
  */
 public class AktivitasokFragment extends Fragment {
 
+    private static final String TAG = AktivitasokFragment.class.getSimpleName();
+
     private class HatterbenTolt extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
 
             //mindig ürítjük a listát, mert az új eredményeket írjuk bele
-            aa.ListaTorles();
+            aktivitasAdapter.ListaTorles();
             //beolvassuk az URL-ről a JSON-t
-            String jsonFromhtml="";
+            String jsonFromhtml = "";
             InputStream is = null;
             try {
                 URL u = new URL(AKTIVITASOK_LINK);
                 URLConnection uc = u.openConnection();
                 is = uc.getInputStream();
                 //beolvassuk a http kérésre adott választ
-                int hossz=0;
+                int hossz = 0;
                 byte[] buff = new byte[1024];
                 //1024 byte-onként olvassuk amíg van mit
-                while((hossz= is.read(buff))!= -1){
-                    jsonFromhtml=jsonFromhtml.concat(Arrays.toString(buff));
+                while((hossz = is.read(buff))!= -1){
+                    jsonFromhtml = jsonFromhtml.concat(new String(buff));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -69,18 +70,20 @@ public class AktivitasokFragment extends Fragment {
                 //kinyerjük a gyökér elemet
                 JSONObject jo = new JSONObject(jsonFromhtml);
                 //abból kinyerjük az első szinten az összes aktivitás objektumot
-                JSONArray ja = jo.getJSONArray("aktivitasok");
+                JSONArray activitiesArray = jo.getJSONArray("aktivitasok");
 
                 String ido;
                 int szog, tav;
                 //nincs FOREACH a JSON object-re, ezért FOR-t kell használni
-                for (int i=0; i< ja.length();i++) {
-                    JSONObject akt = ja.getJSONObject(i);
+
+                for (int i=0; i< activitiesArray.length();i++) {
+                    JSONObject row = activitiesArray.getJSONObject(i);
                     //minden objektumnak kinyerjük a tulajdonságait
-                    ido=akt.optString("ido").toString();
-                    szog=Integer.parseInt(akt.optString("szog").toString());
-                    tav=Integer.parseInt(akt.optString("tav").toString());
-                    aa.Hozzaadas(new AktivitasObject(ido, szog, tav));
+                    ido = row.optString("ido").toString();
+                    szog = Integer.parseInt(row.optString("szog").toString());
+                    tav = Integer.parseInt(row.optString("tav").toString());
+                    aktivitasAdapter.Hozzaadas(new Aktivitas(ido, szog, tav));
+
                 }
             } catch (JSONException e){
                 e.printStackTrace();
@@ -94,7 +97,10 @@ public class AktivitasokFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean eredmeny) {
             //ha sikeres volt a letöltés, akkor frissíttetjük csak
-            if(eredmeny) lv.invalidate();
+            Log.v(TAG, String.format("onPostExecute %b", eredmeny));
+            if(eredmeny) {
+                lv.invalidate();
+            }
         }
     }
 
@@ -107,7 +113,7 @@ public class AktivitasokFragment extends Fragment {
     }
 
     //az adapter, amibe az adatokat töltjük
-    AktivitasAdapter aa;
+    AktivitasAdapter aktivitasAdapter;
     //és a ListView amely megjeleníti
     ListViewCompat lv;
     //Timer ami néha frissíti az adatokat
@@ -121,8 +127,8 @@ public class AktivitasokFragment extends Fragment {
         //megkeressük a listát
         lv = (ListViewCompat) view.findViewById(R.id.aktivitaslista);
         //összekötjük a listát az adapterével
-        aa = new AktivitasAdapter();
-        lv.setAdapter(aa);
+        aktivitasAdapter = new AktivitasAdapter();
+        lv.setAdapter(aktivitasAdapter);
 
         //kezdetben egyszer lehúzzuk az adatokat
         new HatterbenTolt().execute();
@@ -132,6 +138,7 @@ public class AktivitasokFragment extends Fragment {
         feladat = new TimerTask() {
             @Override
             public void run() {
+                Log.v(TAG, Integer.toString(aktivitasAdapter.aktivitasok.size()));
                 new HatterbenTolt().execute();
             }
         };

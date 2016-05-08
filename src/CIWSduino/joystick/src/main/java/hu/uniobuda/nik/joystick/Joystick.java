@@ -9,9 +9,16 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
+
 
 /**
- * Created by Forisz on 07/05/16.
+ * Joystick view implementation.
+ * Created by Christoforos Zisis on 07/05/16.
+ * @author Christoforos Zisis
+ * @version 1.0.1
+ *
+ * TODO: Since android has a nice implementation for points --> Replace {hu.uniobuda.nik.joystick.Point} with {android.graphics.PointF}
  */
 public class Joystick extends View {
 
@@ -43,6 +50,10 @@ public class Joystick extends View {
             (float)Math.toRadians(315),
             (float)Math.toRadians(337.5)
     };
+    private static final Paint.Style[] STYLES = new Paint.Style[] {
+        Paint.Style.FILL,
+        Paint.Style.STROKE
+    };
     //</editor-fold>
 
     //<editor-fold desc="Fields">
@@ -56,6 +67,7 @@ public class Joystick extends View {
     private Point joy;
     private boolean resetPositionAfterRelease, drawCrosshair, animate;
     private ValueAnimator animator;
+    private Paint.Style innerCircleStyle, outerCircleStyle;
     //</editor-fold>
 
     //<editor-fold desc="Getters & Setters">
@@ -86,26 +98,24 @@ public class Joystick extends View {
 
     //<editor-fold desc="Constructors">
     public Joystick(Context context) {
-        super(context);
-        init(context, null);
+        this(context, null);
     }
 
     public Joystick(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, 0);
     }
 
     public Joystick(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context, attrs, defStyleAttr);
     }
     //</editor-fold>
 
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         listener = null;
         joy = new Point(0f, 0f);
 
-        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Joystick, 0, 0);
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Joystick, defStyleAttr, 0);
 
         innerCircleRadius = attributes.getDimensionPixelSize(R.styleable.Joystick_innerCircleRadius, DEFAULT_INNER_CIRCLE_RADIUS);
         int innerCircleColor = attributes.getColor(R.styleable.Joystick_innerCircleColor, DEFAULT_INNER_CIRCLE_COLOR);
@@ -116,6 +126,8 @@ public class Joystick extends View {
         resetPositionAfterRelease = attributes.getBoolean(R.styleable.Joystick_resetPositionOnRelease, RESET_POSITION_AFTER_RELEASE);
         drawCrosshair = attributes.getBoolean(R.styleable.Joystick_drawCrosshair, DRAW_CROSSHAIR);
         animate = attributes.getBoolean(R.styleable.Joystick_animate, ANIMATE);
+        outerCircleStyle = STYLES[attributes.getInt(R.styleable.Joystick_outerCircleStyle, 1)];
+        innerCircleStyle = STYLES[attributes.getInt(R.styleable.Joystick_innerCircleStyle, 0)];
 
         attributes.recycle();
 
@@ -124,13 +136,13 @@ public class Joystick extends View {
         // Set up Paint instances based on attributes.
         outerCirclePaint = new Paint();
         outerCirclePaint.setAntiAlias(true);
-        outerCirclePaint.setStyle(Paint.Style.STROKE);
+        outerCirclePaint.setStyle(outerCircleStyle);
         outerCirclePaint.setColor(outerCircleColor);
         outerCirclePaint.setStrokeWidth(outerCircleWidth);
 
         innerCirclePaint = new Paint();
         innerCirclePaint.setAntiAlias(true);
-        innerCirclePaint.setStyle(Paint.Style.FILL);
+        innerCirclePaint.setStyle(innerCircleStyle);
         innerCirclePaint.setColor(innerCircleColor);
 
         linePaint = new Paint();
@@ -201,7 +213,16 @@ public class Joystick extends View {
     }
 
     @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 if (listener != null) {
@@ -209,15 +230,14 @@ public class Joystick extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                final Point pointer = new Point(event.getX(0), event.getY(0)),
-                        center = new Point(centerX, centerY);
+                final Point pointer = new Point(event.getX(0), event.getY(0));
+                final Point center = new Point(centerX, centerY);
                 // Prevent the inner circle from leaving the outer circle's boundaries.
                 if (getDistance(pointer, center) > outerCircleRadius) {
                     joy = getCircleLineIntersectionPoint(pointer, center, outerCircleRadius);
                 } else {
                     joy.x = pointer.x;
                     joy.y = pointer.y;
-                    //joy = getCircleLineIntersectionPoint(pointer, center, getDistance(pointer, center));
                 }
                 // Let's translate the x and y position into the [-1, 1] range and call the callback with it;
                 if (listener != null) {

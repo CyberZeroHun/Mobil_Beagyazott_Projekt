@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.forisz.streamingexample.FullscreenActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <SurfaceView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        >
+    </SurfaceView>
+    <hu.uniobuda.nik.joystick.Joystick
+        android:id="@+id/joystick"
+        app:innerCircleColor="@color/colorAlap"
+        app:outerCircleColor="@color/colorAlapSotet"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        app:innerCircleRadius="45dp"
+        app:innerCircleStyle="FILL"
+        app:outerCircleStyle="FILL"
+        app:lineWidth="2dp"
+        app:lineColor="@color/colorFekete"
+        android:layout_gravity="bottom|right"
+
+        />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+</FrameLayout>
