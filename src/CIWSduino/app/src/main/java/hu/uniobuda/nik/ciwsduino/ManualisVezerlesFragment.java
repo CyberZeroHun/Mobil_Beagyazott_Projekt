@@ -55,7 +55,7 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
         joystick1.setJoystickEventListener(new JoystickEventListener() {
             @Override
             public void onPositionChange(float x, float y, float deg) {
-                angleTextView.setText(R.string.fegyver_szog + Float.toString(deg));
+                angleTextView.setText(getString(R.string.fegyver_szog) + Float.toString(deg));
             }
 
             @Override
