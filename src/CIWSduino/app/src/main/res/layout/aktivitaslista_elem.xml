@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ido"
+        android:textColor="@color/colorAlap"
         android:text="@string/ido"
         android:textSize="@dimen/szoveg_meret" />
     <android.support.v7.widget.AppCompatTextView

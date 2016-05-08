@@ -1,5 +1,6 @@
 package hu.uniobuda.nik.ciwsduino;
 
+import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,8 +49,8 @@ public class AktivitasAdapter extends BaseAdapter {
 
     class ViewHolder {
         TextView ido;
-        TextView szog;
         TextView tav;
+        TextView szog;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -68,9 +69,17 @@ public class AktivitasAdapter extends BaseAdapter {
         }
         if (position < aktivitasok.size()) {
             Aktivitas aktivitas = aktivitasok.get(position);
-            holder.tav.setText(Integer.toString(aktivitas.getTav()));
-            holder.szog.setText(Integer.toString(aktivitas.getSzog()));
-            holder.ido.setText(aktivitas.getIdo());
+            String t = parent.getResources().getString(R.string.tavolsag)+" ";
+            t =   t + Integer.toString(aktivitas.getTav());
+            t = t + " cm";
+            holder.tav.setText(t);
+            String sz = parent.getResources().getString(R.string.szog)+" ";
+            sz =   sz + Integer.toString(aktivitas.getSzog());
+            sz = sz + " °";
+            holder.szog.setText(sz);
+            String i = parent.getResources().getString(R.string.ido)+" ";
+            i = i + aktivitas.getIdo();
+            holder.ido.setText(i);
         }
 
         return convertView;
