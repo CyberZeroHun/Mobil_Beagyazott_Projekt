@@ -62,7 +62,7 @@ public class UdpSocketThread extends Thread {
             e.printStackTrace();
         }
 
-        if (!incomingSocket.isClosed()) {
+        if (incomingSocket != null && !incomingSocket.isClosed()) {
             incomingSocket.close();
             incomingSocket = null;
         }

@@ -36,7 +36,7 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
     private Handler messageHandler;
     private Button goToFullscreenButton;
     private Joystick joystick1;
-    private TextView angleTextView;
+    private TextView angleTextView, serverTextview;
 
     @Nullable
     @Override
@@ -45,6 +45,7 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
         View view = inflater.inflate(R.layout.fragment_manualis_vezerles, container, false);
         goToFullscreenButton = (Button)view.findViewById(R.id.go_to_fullscreen);
         angleTextView = (TextView)view.findViewById(R.id.angleTextView);
+        serverTextview = (TextView)view.findViewById(R.id.serverTextView);
 
         joystick1 = (Joystick)view.findViewById(R.id.joystick_1);
 

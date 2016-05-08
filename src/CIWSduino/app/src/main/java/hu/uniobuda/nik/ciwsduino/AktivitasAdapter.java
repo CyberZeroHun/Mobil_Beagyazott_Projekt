@@ -53,7 +53,6 @@ public class AktivitasAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View row;
         ViewHolder holder;
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.aktivitaslista_elem, null);
@@ -67,10 +66,12 @@ public class AktivitasAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-        Aktivitas aktivitas = aktivitasok.get(position);
-        holder.tav.setText(Integer.toString(aktivitas.getTav()));
-        holder.szog.setText(Integer.toString(aktivitas.getSzog()));
-        holder.ido.setText(aktivitas.getIdo());
+        if (position < aktivitasok.size()) {
+            Aktivitas aktivitas = aktivitasok.get(position);
+            holder.tav.setText(Integer.toString(aktivitas.getTav()));
+            holder.szog.setText(Integer.toString(aktivitas.getSzog()));
+            holder.ido.setText(aktivitas.getIdo());
+        }
 
         return convertView;
 
