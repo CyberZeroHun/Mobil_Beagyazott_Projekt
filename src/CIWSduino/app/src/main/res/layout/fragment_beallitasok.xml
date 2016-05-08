@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <android.support.v7.widget.AppCompatTextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/cim_szoveg_meret"
-        android:text="@string/beallitasok"/>
-</RelativeLayout>
+        android:layout_gravity="center">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/cim"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/cim_szoveg_meret"
+            android:text="@string/beallitasok"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/vibracioszoveg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAlap"
+            android:text="Vibrációs értesítések:"
+            android:layout_below="@+id/cim"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <Switch
+            android:id="@+id/vibracio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vibracioszoveg"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tavvalasztoszoveg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAlap"
+            android:text="@string/erzekelesi_tavolsag"
+            android:layout_below="@+id/vibracio"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <NumberPicker
+            android:id="@+id/tavvalaszto"
+            android:layout_width="@dimen/picker_width"
+            android:layout_height="@dimen/picker_height"
+            android:layout_below="@+id/tavvalasztoszoveg"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/szogvalasztoszoveg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAlap"
+            android:text="@string/erzekelesi_szog"
+            android:layout_below="@+id/tavvalaszto"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <NumberPicker
+            android:id="@+id/szogvalaszto"
+            android:layout_width="@dimen/picker_width"
+            android:layout_height="@dimen/picker_height"
+            android:layout_below="@+id/szogvalasztoszoveg"
+            android:layout_alignLeft="@+id/tavvalaszto"
+            android:layout_alignStart="@+id/tavvalaszto" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tavosztasvalasztoszoveg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAlap"
+            android:text="@string/tavolsagosztok"
+            android:layout_below="@+id/szogvalaszto" />
+        <NumberPicker
+            android:id="@+id/tavosztasvalaszto"
+            android:layout_width="@dimen/picker_width"
+            android:layout_height="@dimen/picker_height"
+            android:layout_below="@+id/tavosztasvalasztoszoveg"
+            android:layout_alignLeft="@+id/szogvalaszto"
+            android:layout_alignStart="@+id/szogvalaszto" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/szogosztasvalasztoszoveg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAlap"
+            android:text="@string/szogosztok"
+            android:layout_below="@+id/tavosztasvalaszto" />
+        <NumberPicker
+            android:id="@+id/szogosztasvalaszto"
+            android:layout_width="@dimen/picker_width"
+            android:layout_height="@dimen/picker_height"
+            android:layout_below="@+id/szogosztasvalasztoszoveg"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</ScrollView>

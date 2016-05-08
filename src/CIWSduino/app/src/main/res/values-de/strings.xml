@@ -16,4 +16,8 @@
     <string name="ido">Zeit:</string>
     <string name="szog">Winkel:</string>
     <string name="tavolsag">Entfernung:</string>
+    <string name="erzekelesi_tavolsag">Schaltabstand:</string>
+    <string name="erzekelesi_szog">Erfassungswinkel:</string>
+    <string name="tavolsagosztok">Anzahl der Entfernungsteilern:</string>
+    <string name="szogosztok">Anzahl der Winkelteilern:</string>
 </resources>

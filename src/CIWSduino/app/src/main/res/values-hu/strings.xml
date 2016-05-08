@@ -16,4 +16,8 @@
     <string name="ido">Idő:</string>
     <string name="szog">Szög:</string>
     <string name="tavolsag">Távolság:</string>
+    <string name="erzekelesi_tavolsag">Érzékelési távolság:</string>
+    <string name="erzekelesi_szog">Érzékelési szög:</string>
+    <string name="tavolsagosztok">Távolságosztók száma:</string>
+    <string name="szogosztok">Szögosztók száma:</string>
 </resources>

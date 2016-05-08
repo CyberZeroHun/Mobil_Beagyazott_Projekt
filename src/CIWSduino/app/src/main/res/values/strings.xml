@@ -16,4 +16,8 @@
     <string name="ido">Time:</string>
     <string name="szog">Angle:</string>
     <string name="tavolsag">Distance:</string>
+    <string name="erzekelesi_tavolsag">Sensing distance:</string>
+    <string name="erzekelesi_szog">Sensing angle:</string>
+    <string name="tavolsagosztok">Number of distance dividers:</string>
+    <string name="szogosztok">Number of angle dividers:</string>
 </resources>
