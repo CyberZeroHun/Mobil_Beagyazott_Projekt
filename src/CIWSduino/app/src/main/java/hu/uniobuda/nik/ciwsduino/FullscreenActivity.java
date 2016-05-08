@@ -1,7 +1,9 @@
 package hu.uniobuda.nik.ciwsduino;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import java.io.IOException;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
+public class FullscreenActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -93,6 +95,9 @@ public class FullscreenActivity extends AppCompatActivity implements SurfaceHold
         }
     };
 
+
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +118,12 @@ public class FullscreenActivity extends AppCompatActivity implements SurfaceHold
                 return false;
             }
         });
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.load_Stream));
+        progressDialog.show();
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -190,6 +201,7 @@ public class FullscreenActivity extends AppCompatActivity implements SurfaceHold
             mediaPlayer.setDisplay(surfaceHolder);
             mediaPlayer.setDataSource("http://192.168.0.29:8090");
             mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setOnErrorListener(this);
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
             Log.e("MediaPlayer", "Failed to setDatasource...");
@@ -218,6 +230,25 @@ public class FullscreenActivity extends AppCompatActivity implements SurfaceHold
     public void onPrepared(MediaPlayer mp) {
         if (mediaPlayer != null) {
             mediaPlayer.start();
+            progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        mediaPlayer.release();
+        try {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDisplay(surfaceHolder);
+            mediaPlayer.setDataSource("http://192.168.0.29:8090");
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setOnErrorListener(this);
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            Log.e("MediaPlayer", "Failed to setDatasource...");
+            e.printStackTrace();
+            mediaPlayer = null;
+        }
+        return false;
     }
 }

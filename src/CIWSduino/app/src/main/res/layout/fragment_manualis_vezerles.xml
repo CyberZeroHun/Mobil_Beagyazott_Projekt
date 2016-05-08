@@ -45,7 +45,7 @@
         android:id="@+id/go_to_fullscreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open camera"
+        android:text="@string/kamera"
         android:layout_above="@+id/joystick_1"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

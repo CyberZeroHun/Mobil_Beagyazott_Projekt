@@ -20,4 +20,7 @@
     <string name="erzekelesi_szog">Érzékelési szög:</string>
     <string name="tavolsagosztok">Távolságosztók száma:</string>
     <string name="szogosztok">Szögosztók száma:</string>
+    <string name="fegyver_szog">Fegyver szöge:</string>
+    <string name="load_Stream">Stream betöltése...</string>
+    <string name="kamera">Kamera</string>
 </resources>

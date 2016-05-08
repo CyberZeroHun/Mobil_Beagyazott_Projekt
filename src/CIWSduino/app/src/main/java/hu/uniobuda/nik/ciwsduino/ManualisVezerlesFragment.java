@@ -46,13 +46,16 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
         goToFullscreenButton = (Button)view.findViewById(R.id.go_to_fullscreen);
         angleTextView = (TextView)view.findViewById(R.id.angleTextView);
         serverTextview = (TextView)view.findViewById(R.id.serverTextView);
+        if (ipAddress == null) {
+            goToFullscreenButton.setEnabled(false);
+        }
 
         joystick1 = (Joystick)view.findViewById(R.id.joystick_1);
 
         joystick1.setJoystickEventListener(new JoystickEventListener() {
             @Override
             public void onPositionChange(float x, float y, float deg) {
-                angleTextView.setText(String.format("Turret angle: %f degrees", deg));
+                angleTextView.setText(R.string.fegyver_szog + Float.toString(deg));
             }
 
             @Override
@@ -144,15 +147,11 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
             } else {
                 // The server ip was found.
                 ipAddress = (String)message.obj;
-                startVideoStreaming();
+                //startVideoStreaming();
+                goToFullscreenButton.setEnabled(true);
             }
         }
         return false;
-    }
-
-    private void startVideoStreaming() {
-        Log.d(TAG, "Starting video streaming...");
-
     }
 
     private static class IncomingMessageHandler extends Handler {

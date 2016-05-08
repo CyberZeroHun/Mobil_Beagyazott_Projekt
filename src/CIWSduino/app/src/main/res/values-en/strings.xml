@@ -20,4 +20,6 @@
     <string name="erzekelesi_szog">Sensing angle:</string>
     <string name="tavolsagosztok">Number of distance dividers:</string>
     <string name="szogosztok">Number of angle dividers:</string>
+    <string name="fegyver_szog">Turret angle: </string>
+    <string name="kamera">Camera</string>
 </resources>
