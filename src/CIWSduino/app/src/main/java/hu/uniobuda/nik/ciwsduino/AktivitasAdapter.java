@@ -1,12 +1,18 @@
 package hu.uniobuda.nik.ciwsduino;
 
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 /**
  * Created by thecy on 2016. 05. 07.
@@ -40,12 +46,37 @@ public class AktivitasAdapter extends BaseAdapter {
         return position;
     }
 
-    class AtmenetiTarolo{
-        AppCompatTextView ido, szog, tav;
+    class ViewHolder {
+        TextView ido;
+        TextView szog;
+        TextView tav;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View row;
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = View.inflate(parent.getContext(), R.layout.aktivitaslista_elem, null);
+
+            holder = new ViewHolder();
+            holder.ido = (TextView)convertView.findViewById(R.id.ido);
+            holder.szog = (TextView)convertView.findViewById(R.id.szog);
+            holder.tav = (TextView)convertView.findViewById(R.id.tav);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder)convertView.getTag();
+        }
+        Aktivitas aktivitas = aktivitasok.get(position);
+        holder.tav.setText(Integer.toString(aktivitas.getTav()));
+        holder.szog.setText(Integer.toString(aktivitas.getSzog()));
+        holder.ido.setText(aktivitas.getIdo());
+
+        return convertView;
+
+
+        /*
+
         Aktivitas akt = aktivitasok.get(position);
         AtmenetiTarolo temp;
 
@@ -54,7 +85,7 @@ public class AktivitasAdapter extends BaseAdapter {
             //ha még nem volt convertView
             convertView=View.inflate(parent.getContext(),R.layout.aktivitaslista_elem,null);
             //az átmeneti elemet is csak egyszer kell példányosítani
-            temp=new AtmenetiTarolo();
+            temp =new AtmenetiTarolo();
             //alapértékeit a convert view-ból vesszük, amiben már
             //a be inflate-elt (betöltött) xml-ünk van
             //tehát az xml név, és cím TextView mezője
@@ -74,8 +105,9 @@ public class AktivitasAdapter extends BaseAdapter {
         temp.ido.setText(akt.getIdo());
         temp.szog.setText(akt.getSzog());
         temp.tav.setText(akt.getTav());
+        */
 
-        return convertView;
+     //   return convertView;
     }
 
 

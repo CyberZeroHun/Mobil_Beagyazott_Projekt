@@ -5,24 +5,38 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/manualisvezerles"/>
+        android:text="@string/manualisvezerles"
+        android:id="@+id/view" />
 
     <hu.uniobuda.nik.joystick.Joystick
-        android:id="@+id/joystick"
-        app:innerCircleColor="@color/colorAlap"
+
+        android:id="@+id/joystick_1"
+        app:innerCircleColor="@color/colorAccent"
         app:outerCircleColor="@color/colorAlapSotet"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:innerCircleRadius="40dp"
+        app:innerCircleRadius="10dp"
+        app:lineColor="@color/colorFekete"
+        app:lineWidth="2dp"
         app:innerCircleStyle="FILL"
         app:outerCircleStyle="FILL"
+        app:resetPositionOnRelease="false"
+        app:drawCrosshair="true"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-        />
-
+    <TextView
+        android:id="@+id/angleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:id="@+id/go_to_fullscreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fkjashdfajsd"
-        />
+        android:text="Open camera"
+        android:layout_above="@+id/joystick_1"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

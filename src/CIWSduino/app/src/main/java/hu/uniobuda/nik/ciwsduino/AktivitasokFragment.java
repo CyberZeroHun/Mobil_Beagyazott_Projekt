@@ -99,7 +99,8 @@ public class AktivitasokFragment extends Fragment {
             //ha sikeres volt a letöltés, akkor frissíttetjük csak
             Log.v(TAG, String.format("onPostExecute %b", eredmeny));
             if(eredmeny) {
-                lv.invalidate();
+                aktivitasAdapter.notifyDataSetChanged();
+                //lv.invalidate();
             }
         }
     }

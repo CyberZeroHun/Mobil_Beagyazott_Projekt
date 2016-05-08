@@ -198,14 +198,14 @@ public class Joystick extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // Draw the outer circle
+        canvas.drawCircle(centerX, centerY, outerCircleRadius - outerCircleOffset, outerCirclePaint);
         // Draw crosshair if needed
         if (drawCrosshair) {
             for (int i = angles.length - 1; i >= 0; i--) {
                 canvas.drawLine(centerX, centerY, crosshairEndX[i], crosshairEndY[i], crosshairPaint);
             }
         }
-        // Draw the outer circle
-        canvas.drawCircle(centerX, centerY, outerCircleRadius - outerCircleOffset, outerCirclePaint);
         // Draw the line that connects the inner and outer circles
         canvas.drawLine(joy.x, joy.y, centerX, centerY, linePaint);
         // Draw the inner circle

@@ -15,9 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.InetAddress;
+
+import hu.uniobuda.nik.joystick.Joystick;
+import hu.uniobuda.nik.joystick.JoystickEventListener;
+
 import static hu.uniobuda.nik.ciwsduino.GlobalisKonstansok.*;
 
 /**
@@ -30,6 +35,8 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
     private UdpSocketThread udpThread;
     private Handler messageHandler;
     private Button goToFullscreenButton;
+    private Joystick joystick1;
+    private TextView angleTextView;
 
     @Nullable
     @Override
@@ -37,10 +44,26 @@ public class ManualisVezerlesFragment extends Fragment implements Handler.Callba
         //beinflate-elem a fragment-be az xml tartalmát
         View view = inflater.inflate(R.layout.fragment_manualis_vezerles, container, false);
         goToFullscreenButton = (Button)view.findViewById(R.id.go_to_fullscreen);
-        ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Wait while loading...");
-  //      progressDialog.show();
+        angleTextView = (TextView)view.findViewById(R.id.angleTextView);
+
+        joystick1 = (Joystick)view.findViewById(R.id.joystick_1);
+
+        joystick1.setJoystickEventListener(new JoystickEventListener() {
+            @Override
+            public void onPositionChange(float x, float y, float deg) {
+                angleTextView.setText(String.format("Turret angle: %f degrees", deg));
+            }
+
+            @Override
+            public void onJoystickReleased() {
+
+            }
+
+            @Override
+            public void onJoystickTouched() {
+
+            }
+        });
 // To dismiss the dialog
 
 

@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/ido"
         android:text="@string/ido"
-        android:textSize="@dimen/cim_szoveg_meret" />
+        android:textSize="@dimen/szoveg_meret" />
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
